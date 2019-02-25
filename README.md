@@ -1,5 +1,7 @@
 # Map Downloader
 
+![Demo Picture](https://i.imgur.com/LyyF3K2.png "Demo Picture")
+
 Map Downloader is a tool created to automate the mass downloading of the maps on the GFL ZE server. It eases the process by automatically figuring out what maps from the servers nomination list aren't downloaded, and downloading/extracting them to your CS:GO maps folder. This can help avoid join delays and having to rejoin for particles when playing a new map.
 
 The programs design/concept is based off a similar tool made by Neon located [here](https://unloze.com/threads/cs-s-ze-map-pack.396/). I just decided that I wanted to make one that took the concept further with neat features like inbuilt extraction, automatic game folder detection and configurable FastDL/map list links.
