@@ -9,3 +9,9 @@ The programs design/concept is based off a similar tool made by Neon located [he
 While this tool is built for use with the GFL ZE server, the map list and FastDL URL are 100% configurable and maps can be downloaded for any server with a maintained map list. However, you may want to consider forking the project if offering this as an official thing, because values default to links for GFL ZE and the program is also branded that way.
 
 The format for any custom map list just needs to be a CSV (comma separated values) map list with a $ symbol prefixing any map not using .bz2 format in the FastDL (likely maps > 150 MB). You can view the default map list for GFL ZE as an example [here](https://raw.githubusercontent.com/Vauff/MapDownloader/master/maps.csv).
+
+## Requirements
+
+**Windows:** Microsoft.NET Framework 4.6.1 (likely pre-installed)
+
+**Mac/Linux:** [Mono](https://www.mono-project.com/)
