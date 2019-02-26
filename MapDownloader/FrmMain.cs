@@ -80,6 +80,7 @@ namespace MapDownloader
 
             try
             {
+                ServicePointManager.ServerCertificateValidationCallback += (o, certificate, chain, errors) => true;
                 mapList = client.DownloadString(maplistUrl).Split(',');
             }
             catch (WebException)
