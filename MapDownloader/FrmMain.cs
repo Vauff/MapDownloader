@@ -12,7 +12,7 @@ namespace MapDownloader
 {
     public partial class FrmMain : Form
     {
-        public static string version = "1.0.1";
+        public static string version = "2.0";
         public static string fastdlUrl = "http://fastdl.gflclan.com/csgo/maps/";
         public static string maplistUrl = "https://raw.githubusercontent.com/Vauff/MapDownloader/master/maps.csv";
         private WebClient client = new WebClient();
