@@ -12,9 +12,6 @@ namespace MapDownloader
 {
     public partial class FrmMain : Form
     {
-        public static string version = "2.0";
-        public static string fastdlUrl = "http://fastdl.gflclan.com/csgo/maps/";
-        public static string maplistUrl = "https://raw.githubusercontent.com/Vauff/MapDownloader/master/maps.csv";
         private WebClient client = new WebClient();
         private Queue<string> queue = new Queue<string>();
         private bool running = false;
@@ -31,7 +28,7 @@ namespace MapDownloader
 
         private void FrmMain_Load(object sender, EventArgs e)
         {
-            txtMapsDir.Text = GetMapsDirectory();
+            txtMapsDir.Text = Functions.GetMapsDirectory();
             txtMapsDir.SelectionStart = 0;
         }
 
@@ -44,12 +41,6 @@ namespace MapDownloader
                     e.Cancel = true;
                 }
             }
-        }
-
-        private void tlsAdvanced_Click(object sender, EventArgs e)
-        {
-            FrmAdvanced frmAdvanced = new FrmAdvanced();
-            frmAdvanced.ShowDialog();
         }
 
         private void tlsAbout_Click(object sender, EventArgs e)
@@ -81,7 +72,7 @@ namespace MapDownloader
             try
             {
                 ServicePointManager.ServerCertificateValidationCallback += (o, certificate, chain, errors) => true;
-                mapList = client.DownloadString(maplistUrl).Split(',');
+                mapList = client.DownloadString(Global.maplistUrl).Split(',');
             }
             catch (WebException)
             {
@@ -167,9 +158,9 @@ namespace MapDownloader
                 try
                 {
                     if (currentCompressed)
-                        client.DownloadFileAsync(new Uri(fastdlUrl + currentMap + ".bsp.bz2"), txtMapsDir.Text + currentMap + ".bsp.bz2");
+                        client.DownloadFileAsync(new Uri(Global.fastdlUrl + currentMap + ".bsp.bz2"), txtMapsDir.Text + currentMap + ".bsp.bz2");
                     else
-                        client.DownloadFileAsync(new Uri(fastdlUrl + currentMap + ".bsp"), txtMapsDir.Text + currentMap + ".bsp");
+                        client.DownloadFileAsync(new Uri(Global.fastdlUrl + currentMap + ".bsp"), txtMapsDir.Text + currentMap + ".bsp");
                 }
                 catch (UriFormatException)
                 {
@@ -222,41 +213,6 @@ namespace MapDownloader
             Download();
         }
 
-        private string GetMapsDirectory()
-        {
-            string registryValue = (string)Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "SteamPath", null);
-
-            if (registryValue != null)
-            {
-                string libraryInfoFileContents = File.ReadAllText(registryValue.Replace("/", @"\") + @"\steamapps\libraryfolders.vdf");
-                List<string> libraryFolders = new List<string>();
-
-                for (int i = 1; true; i++)
-                {
-                    if (libraryInfoFileContents.Contains("\"" + i + "\""))
-                        libraryFolders.Add(libraryInfoFileContents.Split(new string[] { "\"" + i + "\"		\"" }, StringSplitOptions.None)[1].Split('"')[0].Replace(@"\\", @"\"));
-                    else
-                        break;
-                }
-
-                libraryFolders.Add(registryValue.Replace("/", @"\"));
-
-                foreach (string folder in libraryFolders)
-                {
-                    string acfFile = folder + @"\steamapps\appmanifest_730.acf";
-
-                    if (File.Exists(acfFile))
-                    {
-                        string installDir = File.ReadAllText(acfFile).Split(new string[] { "\"installdir\"		\"" }, StringSplitOptions.None)[1].Split('"')[0];
-
-                        return folder.Substring(0, 1).ToUpper() + folder.Substring(1).Replace("program files", "Program Files") + @"\steamapps\common\" + installDir + @"\csgo\maps\";
-                    }
-                }
-            }
-
-            return "";
-        }
-
         private void ToggleMode(bool defaultState)
         {
             if (defaultState)
@@ -275,7 +231,6 @@ namespace MapDownloader
             running = !defaultState;
             btnBrowse.Enabled = defaultState;
             txtMapsDir.Enabled = defaultState;
-            tlsAdvanced.Enabled = defaultState;
         }
     }
 }

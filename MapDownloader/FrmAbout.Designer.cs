@@ -78,7 +78,7 @@
 			this.lblVersion.Location = new System.Drawing.Point(294, 35);
 			this.lblVersion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.lblVersion.Name = "lblVersion";
-			this.lblVersion.Size = new System.Drawing.Size(12, 15);
+			this.lblVersion.Size = new System.Drawing.Size(13, 15);
 			this.lblVersion.TabIndex = 3;
 			this.lblVersion.Text = "x";
 			this.lblVersion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -89,7 +89,7 @@
 			this.lblAbout.Location = new System.Drawing.Point(188, 59);
 			this.lblAbout.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.lblAbout.Name = "lblAbout";
-			this.lblAbout.Size = new System.Drawing.Size(12, 15);
+			this.lblAbout.Size = new System.Drawing.Size(13, 15);
 			this.lblAbout.TabIndex = 4;
 			this.lblAbout.Text = "x";
 			// 

@@ -24,14 +24,14 @@ namespace MapDownloader
 
         private void FrmAbout_Load(object sender, EventArgs e)
         {
-            lblVersion.Text = "v" + FrmMain.version;
+            lblVersion.Text = "v" + Global.version;
             lblAbout.Text = "Created by Vauff" + Environment.NewLine + Environment.NewLine + "Licensed under the GNU General Public" + Environment.NewLine + "License v3.0";
         }
 
         private void lblLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             lblLink.LinkVisited = true;
-            System.Diagnostics.Process.Start("https://github.com/Vauff/MapDownloader");
+            Functions.OpenBrowser("https://github.com/Vauff/MapDownloader");
         }
     }
 }
