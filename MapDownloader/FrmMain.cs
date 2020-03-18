@@ -64,6 +64,7 @@ namespace MapDownloader
             processed = 0;
 
             string[] mapList;
+            List<string> realMapList = new List<string>();
             List<string> downloadedMapList = new List<string>();
             List<string> toDownloadList = new List<string>();
             FileInfo[] mapFiles;
@@ -93,8 +94,6 @@ namespace MapDownloader
                 return;
             }
 
-            txtOutput.AppendText(mapList.Length + " total maps found in server map list");
-
             foreach (FileInfo file in mapFiles)
                 downloadedMapList.Add(file.Name.Split('.')[0].ToLower());
 
@@ -102,9 +101,16 @@ namespace MapDownloader
             {
                 string map = rawMap.Replace("\n", "");
 
-                if (!downloadedMapList.Contains(map.Replace("$", "").ToLower()) && !map.Equals(""))
-                    toDownloadList.Add(map);
+                if (!map.Equals(""))
+                {
+                    realMapList.Add(map);
+
+                    if (!downloadedMapList.Contains(map.Replace("$", "").ToLower()))
+                        toDownloadList.Add(map); 
+                }
             }
+
+            txtOutput.AppendText(realMapList.Count + " total maps found in server map list");
 
             toDownloadCount = toDownloadList.Count;
             prgDownload.Maximum = toDownloadCount;
