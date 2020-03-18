@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,13 +13,10 @@ namespace MapDownloader
 {
     public partial class FrmMain : Form
     {
-        public static string version = "1.0.1";
-        public static string fastdlUrl = "http://fastdl.gflclan.com/csgo/maps/";
-        public static string maplistUrl = "https://raw.githubusercontent.com/Vauff/MapDownloader/master/maps.csv";
         private WebClient client = new WebClient();
         private Queue<string> queue = new Queue<string>();
         private bool running = false;
-        private int notDownloaded = 0;
+        private int processed = 0;
         private int toDownloadCount;
         private string currentMap;
         private bool currentCompressed;
@@ -31,7 +29,7 @@ namespace MapDownloader
 
         private void FrmMain_Load(object sender, EventArgs e)
         {
-            txtMapsDir.Text = GetMapsDirectory();
+            txtMapsDir.Text = Functions.GetMapsDirectory();
             txtMapsDir.SelectionStart = 0;
         }
 
@@ -44,12 +42,6 @@ namespace MapDownloader
                     e.Cancel = true;
                 }
             }
-        }
-
-        private void tlsAdvanced_Click(object sender, EventArgs e)
-        {
-            FrmAdvanced frmAdvanced = new FrmAdvanced();
-            frmAdvanced.ShowDialog();
         }
 
         private void tlsAbout_Click(object sender, EventArgs e)
@@ -69,9 +61,10 @@ namespace MapDownloader
         private void btnMain_Click_Download(object sender, EventArgs e)
         {
             ToggleMode(false);
-            notDownloaded = 0;
+            processed = 0;
 
             string[] mapList;
+            List<string> realMapList = new List<string>();
             List<string> downloadedMapList = new List<string>();
             List<string> toDownloadList = new List<string>();
             FileInfo[] mapFiles;
@@ -81,7 +74,7 @@ namespace MapDownloader
             try
             {
                 ServicePointManager.ServerCertificateValidationCallback += (o, certificate, chain, errors) => true;
-                mapList = client.DownloadString(maplistUrl).Split(',');
+                mapList = client.DownloadString(Global.maplistUrl).Split(',');
             }
             catch (WebException)
             {
@@ -101,8 +94,6 @@ namespace MapDownloader
                 return;
             }
 
-            txtOutput.AppendText(mapList.Length + " total maps found in server map list");
-
             foreach (FileInfo file in mapFiles)
                 downloadedMapList.Add(file.Name.Split('.')[0].ToLower());
 
@@ -110,9 +101,16 @@ namespace MapDownloader
             {
                 string map = rawMap.Replace("\n", "");
 
-                if (!downloadedMapList.Contains(map.Replace("$", "").ToLower()) && !map.Equals(""))
-                    toDownloadList.Add(map);
+                if (!map.Equals(""))
+                {
+                    realMapList.Add(map);
+
+                    if (!downloadedMapList.Contains(map.Replace("$", "").ToLower()))
+                        toDownloadList.Add(map); 
+                }
             }
+
+            txtOutput.AppendText(realMapList.Count + " total maps found in server map list");
 
             toDownloadCount = toDownloadList.Count;
             prgDownload.Maximum = toDownloadCount;
@@ -142,7 +140,6 @@ namespace MapDownloader
         {
             txtOutput.AppendText(Environment.NewLine + "Stop request received, process will stop after the current map is finished");
             btnMain.Enabled = false;
-            notDownloaded = queue.Count;
             queue.Clear();
         }
 
@@ -167,9 +164,9 @@ namespace MapDownloader
                 try
                 {
                     if (currentCompressed)
-                        client.DownloadFileAsync(new Uri(fastdlUrl + currentMap + ".bsp.bz2"), txtMapsDir.Text + currentMap + ".bsp.bz2");
+                        client.DownloadFileAsync(new Uri(Global.fastdlUrl + currentMap + ".bsp.bz2"), txtMapsDir.Text + currentMap + ".bsp.bz2");
                     else
-                        client.DownloadFileAsync(new Uri(fastdlUrl + currentMap + ".bsp"), txtMapsDir.Text + currentMap + ".bsp");
+                        client.DownloadFileAsync(new Uri(Global.fastdlUrl + currentMap + ".bsp"), txtMapsDir.Text + currentMap + ".bsp");
                 }
                 catch (UriFormatException)
                 {
@@ -179,8 +176,6 @@ namespace MapDownloader
             }
             else
             {
-                int processed = (toDownloadCount - notDownloaded);
-
                 if (processed == 1)
                     txtOutput.AppendText(Environment.NewLine + "Successfully downloaded/extracted " + processed + " map");
                 else
@@ -189,6 +184,8 @@ namespace MapDownloader
                 ToggleMode(true);
                 btnMain.Enabled = true;
                 prgDownload.Maximum = processed;
+
+                FlashWindow.Flash(this);
             }
         }
 
@@ -200,9 +197,7 @@ namespace MapDownloader
             {
                 string x = e.Error.Message;
 
-                txtOutput.AppendText(Environment.NewLine + currentMap + " download failed, make sure map name and other variables are correct");
-                notDownloaded = queue.Count + 1;
-                queue.Clear();
+                txtOutput.AppendText(Environment.NewLine + currentMap + " download failed");
             }
             catch (Exception)
             {
@@ -213,48 +208,13 @@ namespace MapDownloader
 
                     txtOutput.AppendText(Environment.NewLine + "Extracting " + currentMap);
                     await Task.Run(() => BZip2.Decompress(compressedStream, decompressedStream, true));
+                    processed++;
                 }
-
-                prgDownload.PerformStep();
             }
 
+            prgDownload.PerformStep();
             compressedFile.Delete();
             Download();
-        }
-
-        private string GetMapsDirectory()
-        {
-            string registryValue = (string)Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "SteamPath", null);
-
-            if (registryValue != null)
-            {
-                string libraryInfoFileContents = File.ReadAllText(registryValue.Replace("/", @"\") + @"\steamapps\libraryfolders.vdf");
-                List<string> libraryFolders = new List<string>();
-
-                for (int i = 1; true; i++)
-                {
-                    if (libraryInfoFileContents.Contains("\"" + i + "\""))
-                        libraryFolders.Add(libraryInfoFileContents.Split(new string[] { "\"" + i + "\"		\"" }, StringSplitOptions.None)[1].Split('"')[0].Replace(@"\\", @"\"));
-                    else
-                        break;
-                }
-
-                libraryFolders.Add(registryValue.Replace("/", @"\"));
-
-                foreach (string folder in libraryFolders)
-                {
-                    string acfFile = folder + @"\steamapps\appmanifest_730.acf";
-
-                    if (File.Exists(acfFile))
-                    {
-                        string installDir = File.ReadAllText(acfFile).Split(new string[] { "\"installdir\"		\"" }, StringSplitOptions.None)[1].Split('"')[0];
-
-                        return folder.Substring(0, 1).ToUpper() + folder.Substring(1).Replace("program files", "Program Files") + @"\steamapps\common\" + installDir + @"\csgo\maps\";
-                    }
-                }
-            }
-
-            return "";
         }
 
         private void ToggleMode(bool defaultState)
@@ -275,7 +235,6 @@ namespace MapDownloader
             running = !defaultState;
             btnBrowse.Enabled = defaultState;
             txtMapsDir.Enabled = defaultState;
-            tlsAdvanced.Enabled = defaultState;
         }
     }
 }
