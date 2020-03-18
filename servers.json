@@ -4,12 +4,16 @@
 		{
 			"name": "GFL Zombie Escape",
 			"mapList": "https://raw.githubusercontent.com/Vauff/MapDownloader/master/maps.csv",
-			"fastDL": "http://fastdlv2.gflclan.com/file/gflfastdl/csgo/maps/"
+			"fastDL": "http://fastdlv2.gflclan.com/file/gflfastdl/csgo/maps/",
+			"appID": "730",
+			"mapsDirectory": "\\csgo\\maps\\"
 		},
 		{
 			"name": "GUC Zombie Escape",
 			"mapList": "http://guc.site.nfoservers.com/server/MapDownloader/maps.csv",
-			"fastDL": "http://guc.site.nfoservers.com/server/maps/"
+			"fastDL": "http://guc.site.nfoservers.com/server/maps/",
+			"appID": "730",
+			"mapsDirectory": "\\csgo\\maps\\"
 		}
 	]
 }
