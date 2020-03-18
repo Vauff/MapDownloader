@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -15,7 +16,7 @@ namespace MapDownloader
         private WebClient client = new WebClient();
         private Queue<string> queue = new Queue<string>();
         private bool running = false;
-        private int notDownloaded = 0;
+        private int processed = 0;
         private int toDownloadCount;
         private string currentMap;
         private bool currentCompressed;
@@ -60,7 +61,7 @@ namespace MapDownloader
         private void btnMain_Click_Download(object sender, EventArgs e)
         {
             ToggleMode(false);
-            notDownloaded = 0;
+            processed = 0;
 
             string[] mapList;
             List<string> downloadedMapList = new List<string>();
@@ -133,7 +134,6 @@ namespace MapDownloader
         {
             txtOutput.AppendText(Environment.NewLine + "Stop request received, process will stop after the current map is finished");
             btnMain.Enabled = false;
-            notDownloaded = queue.Count;
             queue.Clear();
         }
 
@@ -170,8 +170,6 @@ namespace MapDownloader
             }
             else
             {
-                int processed = (toDownloadCount - notDownloaded);
-
                 if (processed == 1)
                     txtOutput.AppendText(Environment.NewLine + "Successfully downloaded/extracted " + processed + " map");
                 else
@@ -180,6 +178,8 @@ namespace MapDownloader
                 ToggleMode(true);
                 btnMain.Enabled = true;
                 prgDownload.Maximum = processed;
+
+                FlashWindow.Flash(this);
             }
         }
 
@@ -191,9 +191,7 @@ namespace MapDownloader
             {
                 string x = e.Error.Message;
 
-                txtOutput.AppendText(Environment.NewLine + currentMap + " download failed, make sure map name and other variables are correct");
-                notDownloaded = queue.Count + 1;
-                queue.Clear();
+                txtOutput.AppendText(Environment.NewLine + currentMap + " download failed");
             }
             catch (Exception)
             {
@@ -204,11 +202,11 @@ namespace MapDownloader
 
                     txtOutput.AppendText(Environment.NewLine + "Extracting " + currentMap);
                     await Task.Run(() => BZip2.Decompress(compressedStream, decompressedStream, true));
+                    processed++;
                 }
-
-                prgDownload.PerformStep();
             }
 
+            prgDownload.PerformStep();
             compressedFile.Delete();
             Download();
         }
