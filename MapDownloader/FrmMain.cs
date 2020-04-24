@@ -99,7 +99,7 @@ namespace MapDownloader
 
             foreach (string rawMap in mapList)
             {
-                string map = rawMap.Replace("\n", "");
+                string map = rawMap.Replace("\r\n", "").Replace("\n", "");
 
                 if (!map.Equals(""))
                 {
@@ -213,7 +213,10 @@ namespace MapDownloader
             }
 
             prgDownload.PerformStep();
-            compressedFile.Delete();
+
+            if (compressedFile.Exists)
+                compressedFile.Delete();
+
             Download();
         }
 
