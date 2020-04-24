@@ -2,9 +2,16 @@
 	"servers":
 	[
 		{
+			"name": "GFL Minigames",
+			"mapList": "https://vauff.com/gfl-mg-maps.csv",
+			"fastDL": "http://fastdl.gflclan.com/csgo/maps/",
+			"appID": "730",
+			"mapsDirectory": "\\csgo\\maps\\"
+		},
+		{
 			"name": "GFL Zombie Escape",
-			"mapList": "https://raw.githubusercontent.com/Vauff/MapDownloader/master/maps.csv",
-			"fastDL": "http://fastdlv2.gflclan.com/file/gflfastdl/csgo/maps/",
+			"mapList": "https://vauff.com/gfl-ze-maps.csv",
+			"fastDL": "http://fastdl.vauff.com/file/gfl-ze/csgo/maps/",
 			"appID": "730",
 			"mapsDirectory": "\\csgo\\maps\\"
 		},

@@ -10,7 +10,7 @@ The programs design/concept is based off a similar tool made by Neon located [he
 
 Yes! The program is built to read servers dynamically from [servers.json](https://github.com/Vauff/MapDownloader/blob/master/servers.json) and will update for anyone with the program immediately after changes happen. To have your server added here, you simply need to add a new server object and provide the given fields. You can either PR a server addition, or contact me directly if you are unfamiliar with GitHub. Servers with dead FastDL or map list URL's will be removed after some time.
 
-The map list must be an online hosted URL (to support the dynamically updating nature of the program), where you choose to host it is up to you. The format for any custom map list just needs to be a CSV (comma separated values) map list with a $ symbol prefixing any map not using .bz2 format in the FastDL (likely maps > 150 MB). You can view the default map list for GFL ZE as an example [here](https://raw.githubusercontent.com/Vauff/MapDownloader/master/maps.csv).
+The map list must be an online hosted URL (to support the dynamically updating nature of the program), where you choose to host it is up to you. The format for any custom map list just needs to be a CSV (comma separated values) map list with a $ symbol prefixing any map not using .bz2 format in the FastDL (likely maps > 150 MB). You can view the map list for GFL ZE as an example [here](https://vauff.com/gfl-ze-maps.csv).
 
 ## Requirements
 
