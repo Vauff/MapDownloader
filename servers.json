@@ -11,7 +11,7 @@
 		{
 			"name": "GFL Zombie Escape",
 			"mapList": "https://vauff.com/gfl-ze-maps.csv",
-			"fastDL": "https://fastdl.vauff.com/file/gfl-ze/csgo/maps/",
+			"fastDL": "https://fastdl.vauff.com/file/gfl-ze/maps/",
 			"appID": "730",
 			"mapsDirectory": "\\csgo\\maps\\"
 		},
