@@ -2,23 +2,23 @@
 	"servers":
 	[
 		{
-			"name": "ArStrike Org. (aSO)",
-			"mapList": "http://arstrike.com.ar/maps.csv",
-			"fastDL": "http://arstrike.com.ar/csgo/maps/",
+			"name": "GFL Minigames",
+			"mapList": "https://vauff.com/gfl-mg-maps.csv",
+			"fastDL": "http://fastdl.gflclan.com/csgo/maps/",
 			"appID": "730",
 			"mapsDirectory": "\\csgo\\maps\\"
 		},
 		{
 			"name": "GFL Zombie Escape",
 			"mapList": "https://vauff.com/gfl-ze-maps.csv",
-			"fastDL": "https://fastdl.vauff.com/file/gfl-ze/maps/",
+			"fastDL": "http://fastdl.vauff.com/file/gfl-ze/csgo/maps/",
 			"appID": "730",
 			"mapsDirectory": "\\csgo\\maps\\"
 		},
 		{
 			"name": "GUC Zombie Escape",
-			"mapList": "https://raw.githubusercontent.com/EG-DEVIL/GUC-CONFIGS/master/maps.csv",
-			"fastDL": "http://5.135.103.176:8081/maps/",
+			"mapList": "https://raw.githubusercontent.com/tilgep/GUC-Configs/master/maps.csv",
+			"fastDL": "http://gucze.com/server/maps/",
 			"appID": "730",
 			"mapsDirectory": "\\csgo\\maps\\"
 		}
