@@ -1,0 +1,76 @@
+name: Build
+
+on:
+  push:
+    paths-ignore:
+      - '.gitignore'
+      - 'LICENSE'
+      - 'README.md'
+      - 'maps.csv'
+      - 'servers.json'
+  pull_request:
+    paths-ignore:
+      - '.gitignore'
+      - 'LICENSE'
+      - 'README.md'
+      - 'maps.csv'
+      - 'servers.json'
+
+jobs:
+  Build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.402
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+    - name: Prepare artifacts
+      run: |
+        robocopy MapDownloader\bin\Release\netcoreapp3.1\ artifacts MapDownloader.exe /r:0 /w:0
+        If ($LastExitCode -le 7) { $LastExitCode = 0 }
+    - uses: actions/upload-artifact@v2
+      with:
+        name: Release
+        path: artifacts
+
+  Release: # below is taken from CXBX-Reloaded and created by RadWolfie
+    if: |
+      github.event.action != 'pull_request' &&
+      github.ref == 'refs/heads/master' &&
+      github.repository == 'Vauff/MapDownloader'
+    needs: Build
+    env:
+      artifact: Release
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download artifacts
+        uses: actions/download-artifact@v1
+        with:
+          name: ${{ env.artifact }}
+      - name: Prepare artifacts for release
+        run: | # download-artifact doesn't download a zip, so rezip it
+          echo "::set-env name=short_commit_sha::$(git rev-parse --short HEAD)"
+          7z a -mx1 "$env:artifact.zip" ".\$env:artifact\*"
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1.1.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: CI-${{ env.short_commit_sha }}
+          release_name: CI-${{ env.short_commit_sha }}
+          prerelease: true
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ env.artifact }}.zip
+          asset_name: ${{ env.artifact }}.zip
+          asset_content_type: application/zip
