@@ -27,10 +27,10 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet publish -r win-x64 -c Release /p:PublishSingleFile=true /p:PublishTrimmed=true
     - name: Prepare artifacts
       run: |
-        robocopy MapDownloader\bin\Release\netcoreapp3.1\ artifacts MapDownloader.exe /r:0 /w:0
+        robocopy MapDownloader\bin\Release\netcoreapp3.1\win-x64\publish\ artifacts MapDownloader.exe /r:0 /w:0
         If ($LastExitCode -le 7) { $LastExitCode = 0 }
     - uses: actions/upload-artifact@v2
       with:
