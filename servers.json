@@ -14,6 +14,13 @@
 			"fastDL": "http://sgfastdl.streamline-servers.com/fastdl/Zeddy/maps/",
 			"appID": "730",
 			"mapsDirectory": "\\csgo\\maps\\"
+		},
+		{
+			"name": "GhostCap Gaming Zombie Escape",
+			"mapList": "https://raw.githubusercontent.com/GhostCap-Gaming/Zombie-Escape-Configs-CS-GO/main/gcg_map_list.csv",
+			"fastDL": "https://www.gcgfast.com/csgo/maps/",
+			"appID": "730",
+			"mapsDirectory": "\\csgo\\maps\\"
 		}
 	]
 }
