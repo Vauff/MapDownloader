@@ -10,7 +10,7 @@
 		},
 		{
 			"name": "Zeddy Zombie Escape",
-			"mapList": "https://raw.githubusercontent.com/kOEN-iwnl/zeddy-server-public-configs/main/maplist.csv",
+			"mapList": "https://raw.githubusercontent.com/notkoen/zeddy-server-public-configs/main/maplist.csv",
 			"fastDL": "http://sgfastdl.streamline-servers.com/fastdl/Zeddy/maps/",
 			"appID": "730",
 			"mapsDirectory": "\\csgo\\maps\\"
