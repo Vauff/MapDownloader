@@ -27,7 +27,17 @@ namespace MapDownloader
 
         private void frmStartup_Load(object sender, EventArgs e)
         {
-            string json = client.DownloadString("https://raw.githubusercontent.com/Vauff/MapDownloader/master/servers.json");
+            string json = "";
+
+            try
+            {
+                json = client.DownloadString("https://raw.githubusercontent.com/Vauff/MapDownloader/master/servers.json");
+            }
+            catch (WebException ex)
+            {
+				MessageBox.Show("Failed retrieving the server list from MapDownloader GitHub!" + Environment.NewLine + Environment.NewLine + "Ensure github.com & your internet connection are functioning.", "Error");
+                return;
+			}
 
             using (JsonDocument document = JsonDocument.Parse(json))
             {
