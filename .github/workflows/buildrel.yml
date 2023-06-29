@@ -32,7 +32,7 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet publish -r win-x64 -c Release /p:PublishSingleFile=true
+      run: dotnet publish -c Release
     - name: Prepare artifacts
       run: |
         robocopy MapDownloader\bin\Release\net7.0-windows\win-x64\publish\ artifacts MapDownloader.exe /r:0 /w:0

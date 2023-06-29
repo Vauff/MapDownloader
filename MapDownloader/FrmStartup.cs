@@ -33,7 +33,7 @@ namespace MapDownloader
             {
                 json = client.DownloadString("https://raw.githubusercontent.com/Vauff/MapDownloader/master/servers.json");
             }
-            catch (WebException ex)
+            catch (WebException)
             {
 				MessageBox.Show("Failed retrieving the server list from MapDownloader GitHub!" + Environment.NewLine + Environment.NewLine + "Ensure github.com & your internet connection are functioning.", "Error");
                 return;
