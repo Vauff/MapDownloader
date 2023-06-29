@@ -8,6 +8,10 @@ on:
       - 'README.md'
       - 'maps.csv'
       - 'servers.json'
+    branches:
+      - master
+    tags:
+      - '*'
   pull_request:
     paths-ignore:
       - '.gitignore'
@@ -20,10 +24,10 @@ jobs:
   Build:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-dotnet@v1
+    - uses: actions/checkout@v3
+    - uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 3.1.402
+        dotnet-version: 3.1.x
     - name: Install dependencies
       run: dotnet restore
     - name: Build
@@ -32,45 +36,25 @@ jobs:
       run: |
         robocopy MapDownloader\bin\Release\netcoreapp3.1\win-x64\publish\ artifacts MapDownloader.exe /r:0 /w:0
         If ($LastExitCode -le 7) { $LastExitCode = 0 }
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         name: Release
         path: artifacts
 
-  Release: # below is taken from CXBX-Reloaded and created by RadWolfie
-    if: |
-      github.event.action != 'pull_request' &&
-      github.ref == 'refs/heads/master' &&
-      github.repository == 'Vauff/MapDownloader'
+  Release:
+    name: Release
+    if: startsWith(github.ref, 'refs/tags/')
     needs: Build
-    env:
-      artifact: Release
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
       - name: Download artifacts
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v3
+
+      - name: Release
+        uses: svenstaro/upload-release-action@v2
         with:
-          name: ${{ env.artifact }}
-      - name: Prepare artifacts for release
-        run: | # download-artifact doesn't download a zip, so rezip it
-          echo "::set-env name=short_commit_sha::$(git rev-parse --short HEAD)"
-          7z a -mx1 "$env:artifact.zip" ".\$env:artifact\*"
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1.1.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: CI-${{ env.short_commit_sha }}
-          release_name: CI-${{ env.short_commit_sha }}
-          prerelease: true
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ env.artifact }}.zip
-          asset_name: ${{ env.artifact }}.zip
-          asset_content_type: application/zip
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: 'Release/MapDownloader.exe'
+          tag: ${{ github.ref }}
+
