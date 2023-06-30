@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using ValveKeyValue;
 
 namespace MapDownloader
 {
@@ -31,32 +32,29 @@ namespace MapDownloader
         {
             string registryValue = (string)Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "SteamPath", null);
 
+            // Only works on Windows, Mac/Linux users will need to manually browse for the folder
             if (registryValue != null)
             {
-                string libraryInfoFileContents = File.ReadAllText(registryValue.Replace("/", @"\") + @"\steamapps\libraryfolders.vdf");
-                List<string> libraryFolders = new List<string>();
+				KVSerializer serializer = KVSerializer.Create(KVSerializationFormat.KeyValues1Text);
+				KVObject libraryFoldersKV = serializer.Deserialize(File.OpenRead(registryValue.Replace("/", @"\") + @"\steamapps\libraryfolders.vdf"));
 
-                for (int i = 1; true; i++)
+                foreach (KVObject folder in libraryFoldersKV)
                 {
-                    if (libraryInfoFileContents.Contains("\"" + i + "\""))
-                        libraryFolders.Add(libraryInfoFileContents.Split(new string[] { "\"" + i + "\"		\"" }, StringSplitOptions.None)[1].Split('"')[0].Replace(@"\\", @"\"));
-                    else
-                        break;
-                }
+                    string folderPath = folder["path"].ToString();
 
-                libraryFolders.Add(registryValue.Replace("/", @"\"));
+                    // Clean up some cosmetic formatting changes Steam can make
+                    folderPath = folderPath.Substring(0, 1).ToUpper() + folderPath.Substring(1).Replace("program files", "Program Files").Replace(@"\\", @"\");
 
-                foreach (string folder in libraryFolders)
-                {
-                    string acfFile = folder + @"\steamapps\appmanifest_" + Global.appID + ".acf";
+					string acfFile = folderPath + @"\steamapps\appmanifest_" + Global.appID + ".acf";
 
-                    if (File.Exists(acfFile))
-                    {
-                        string installDir = File.ReadAllText(acfFile).Split(new string[] { "\"installdir\"		\"" }, StringSplitOptions.None)[1].Split('"')[0];
+					if (File.Exists(acfFile))
+					{
+						KVObject appManifestKV = serializer.Deserialize(File.OpenRead(acfFile));
+						string installDir = appManifestKV["installdir"].ToString();
 
-                        return folder.Substring(0, 1).ToUpper() + folder.Substring(1).Replace("program files", "Program Files") + @"\steamapps\common\" + installDir + Global.mapsDirectory;
-                    }
-                }
+						return folderPath + @"\steamapps\common\" + installDir + Global.mapsDirectory;
+					}
+				}
             }
 
             return "";
