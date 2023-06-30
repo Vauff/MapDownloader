@@ -1,144 +1,143 @@
 ﻿namespace MapDownloader
 {
-    partial class FrmAbout
-    {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+	partial class FrmAbout
+	{
+		/// <summary>
+		/// Required designer variable.
+		/// </summary>
+		private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+		/// <summary>
+		/// Clean up any resources being used.
+		/// </summary>
+		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing && (components != null))
+			{
+				components.Dispose();
+			}
+			base.Dispose(disposing);
+		}
 
-        #region Windows Form Designer generated code
+		#region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAbout));
-			this.picVauff = new System.Windows.Forms.PictureBox();
-			this.btnClose = new System.Windows.Forms.Button();
-			this.lblTitle = new System.Windows.Forms.Label();
-			this.lblVersion = new System.Windows.Forms.Label();
-			this.lblAbout = new System.Windows.Forms.Label();
-			this.lblLink = new System.Windows.Forms.LinkLabel();
-			((System.ComponentModel.ISupportInitialize)(this.picVauff)).BeginInit();
-			this.SuspendLayout();
+			picVauff = new System.Windows.Forms.PictureBox();
+			btnClose = new System.Windows.Forms.Button();
+			lblTitle = new System.Windows.Forms.Label();
+			lblVersion = new System.Windows.Forms.Label();
+			lblAbout = new System.Windows.Forms.Label();
+			lblLink = new System.Windows.Forms.LinkLabel();
+			((System.ComponentModel.ISupportInitialize)picVauff).BeginInit();
+			SuspendLayout();
 			// 
 			// picVauff
 			// 
-			this.picVauff.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("picVauff.BackgroundImage")));
-			this.picVauff.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-			this.picVauff.Location = new System.Drawing.Point(6, 14);
-			this.picVauff.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.picVauff.Name = "picVauff";
-			this.picVauff.Size = new System.Drawing.Size(173, 171);
-			this.picVauff.TabIndex = 0;
-			this.picVauff.TabStop = false;
+			picVauff.BackgroundImage = (System.Drawing.Image)resources.GetObject("picVauff.BackgroundImage");
+			picVauff.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			picVauff.Location = new System.Drawing.Point(6, 14);
+			picVauff.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+			picVauff.Name = "picVauff";
+			picVauff.Size = new System.Drawing.Size(173, 171);
+			picVauff.TabIndex = 0;
+			picVauff.TabStop = false;
 			// 
 			// btnClose
 			// 
-			this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnClose.Location = new System.Drawing.Point(264, 153);
-			this.btnClose.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.btnClose.Name = "btnClose";
-			this.btnClose.Size = new System.Drawing.Size(98, 31);
-			this.btnClose.TabIndex = 1;
-			this.btnClose.Text = "Close";
-			this.btnClose.UseVisualStyleBackColor = true;
-			this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+			btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			btnClose.Location = new System.Drawing.Point(264, 153);
+			btnClose.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+			btnClose.Name = "btnClose";
+			btnClose.Size = new System.Drawing.Size(98, 31);
+			btnClose.TabIndex = 1;
+			btnClose.Text = "Close";
+			btnClose.UseVisualStyleBackColor = true;
+			btnClose.Click += btnClose_Click;
 			// 
 			// lblTitle
 			// 
-			this.lblTitle.AutoSize = true;
-			this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblTitle.Location = new System.Drawing.Point(237, 12);
-			this.lblTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.lblTitle.Name = "lblTitle";
-			this.lblTitle.Size = new System.Drawing.Size(129, 20);
-			this.lblTitle.TabIndex = 2;
-			this.lblTitle.Text = "Map Downloader";
+			lblTitle.AutoSize = true;
+			lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			lblTitle.Location = new System.Drawing.Point(237, 12);
+			lblTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			lblTitle.Name = "lblTitle";
+			lblTitle.Size = new System.Drawing.Size(129, 20);
+			lblTitle.TabIndex = 2;
+			lblTitle.Text = "Map Downloader";
 			// 
 			// lblVersion
 			// 
-			this.lblVersion.AutoSize = true;
-			this.lblVersion.Location = new System.Drawing.Point(294, 35);
-			this.lblVersion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.lblVersion.Name = "lblVersion";
-			this.lblVersion.Size = new System.Drawing.Size(13, 15);
-			this.lblVersion.TabIndex = 3;
-			this.lblVersion.Text = "x";
-			this.lblVersion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+			lblVersion.AutoSize = true;
+			lblVersion.Location = new System.Drawing.Point(294, 35);
+			lblVersion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			lblVersion.Name = "lblVersion";
+			lblVersion.Size = new System.Drawing.Size(13, 15);
+			lblVersion.TabIndex = 3;
+			lblVersion.Text = "x";
+			lblVersion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			// 
 			// lblAbout
 			// 
-			this.lblAbout.AutoSize = true;
-			this.lblAbout.Location = new System.Drawing.Point(188, 59);
-			this.lblAbout.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.lblAbout.Name = "lblAbout";
-			this.lblAbout.Size = new System.Drawing.Size(13, 15);
-			this.lblAbout.TabIndex = 4;
-			this.lblAbout.Text = "x";
+			lblAbout.AutoSize = true;
+			lblAbout.Location = new System.Drawing.Point(188, 59);
+			lblAbout.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			lblAbout.Name = "lblAbout";
+			lblAbout.Size = new System.Drawing.Size(13, 15);
+			lblAbout.TabIndex = 4;
+			lblAbout.Text = "x";
 			// 
 			// lblLink
 			// 
-			this.lblLink.AutoSize = true;
-			this.lblLink.Location = new System.Drawing.Point(189, 127);
-			this.lblLink.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.lblLink.Name = "lblLink";
-			this.lblLink.Size = new System.Drawing.Size(234, 15);
-			this.lblLink.TabIndex = 5;
-			this.lblLink.TabStop = true;
-			this.lblLink.Text = "https://github.com/Vauff/MapDownloader";
-			this.lblLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblLink_LinkClicked);
+			lblLink.AutoSize = true;
+			lblLink.Location = new System.Drawing.Point(189, 127);
+			lblLink.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			lblLink.Name = "lblLink";
+			lblLink.Size = new System.Drawing.Size(234, 15);
+			lblLink.TabIndex = 5;
+			lblLink.TabStop = true;
+			lblLink.Text = "https://github.com/Vauff/MapDownloader";
+			lblLink.LinkClicked += lblLink_LinkClicked;
 			// 
 			// FrmAbout
 			// 
-			this.AcceptButton = this.btnClose;
-			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.CancelButton = this.btnClose;
-			this.ClientSize = new System.Drawing.Size(438, 198);
-			this.Controls.Add(this.lblLink);
-			this.Controls.Add(this.lblAbout);
-			this.Controls.Add(this.lblVersion);
-			this.Controls.Add(this.lblTitle);
-			this.Controls.Add(this.btnClose);
-			this.Controls.Add(this.picVauff);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.MaximizeBox = false;
-			this.Name = "FrmAbout";
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-			this.Text = "About";
-			this.Load += new System.EventHandler(this.FrmAbout_Load);
-			((System.ComponentModel.ISupportInitialize)(this.picVauff)).EndInit();
-			this.ResumeLayout(false);
-			this.PerformLayout();
+			AcceptButton = btnClose;
+			AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+			AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			CancelButton = btnClose;
+			ClientSize = new System.Drawing.Size(438, 198);
+			Controls.Add(lblLink);
+			Controls.Add(lblAbout);
+			Controls.Add(lblVersion);
+			Controls.Add(lblTitle);
+			Controls.Add(btnClose);
+			Controls.Add(picVauff);
+			FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+			Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+			MaximizeBox = false;
+			Name = "FrmAbout";
+			StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+			Text = "About";
+			Load += FrmAbout_Load;
+			((System.ComponentModel.ISupportInitialize)picVauff).EndInit();
+			ResumeLayout(false);
+			PerformLayout();
+		}
 
-        }
+		#endregion
 
-        #endregion
-
-        private System.Windows.Forms.PictureBox picVauff;
-        private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.Label lblVersion;
-        private System.Windows.Forms.Label lblAbout;
-        private System.Windows.Forms.LinkLabel lblLink;
-    }
+		private System.Windows.Forms.PictureBox picVauff;
+		private System.Windows.Forms.Button btnClose;
+		private System.Windows.Forms.Label lblTitle;
+		private System.Windows.Forms.Label lblVersion;
+		private System.Windows.Forms.Label lblAbout;
+		private System.Windows.Forms.LinkLabel lblLink;
+	}
 }
