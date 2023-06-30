@@ -57,7 +57,7 @@ namespace MapDownloader
 
 		private void btnStart_Click(object sender, EventArgs e)
 		{
-			if (String.Equals(txtFastdlUrl.Text, "") || String.Equals(txtMaplistUrl.Text, ""))
+			if (String.Equals(txtFastdlUrl.Text, "") || String.Equals(txtMaplistUrl.Text, "") || lbServers.SelectedIndex == -1)
 			{
 				MessageBox.Show("You must select a server!", "Error");
 				return;
