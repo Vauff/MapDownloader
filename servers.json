@@ -2,25 +2,11 @@
 	"servers":
 	[
 		{
-			"name": "GFL Zombie Escape",
-			"mapList": "https://vauff.com/gfl-ze-maps.csv",
-			"fastDL": "https://fastdlv2.gflclan.com/file/gflfastdlv2/csgo/maps/",
-			"appID": "730",
-			"mapsDirectory": "\\csgo\\maps\\"
-		},
-		{
-			"name": "Zeddy Zombie Escape",
-			"mapList": "https://raw.githubusercontent.com/notkoen/Zombie-Escape-Configs/main/misc/zeddy/maplist.csv",
-			"fastDL": "http://sgfastdl.streamline-servers.com/fastdl/Zeddy/maps/",
-			"appID": "730",
-			"mapsDirectory": "\\csgo\\maps\\"
-		},
-		{
-			"name": "GhostCap Gaming Zombie Escape",
-			"mapList": "https://raw.githubusercontent.com/GhostCap-Gaming/Zombie-Escape-Configs-CS-GO/main/gcg_map_list.csv",
-			"fastDL": "https://www.gcgfast.com/csgo/maps/",
-			"appID": "730",
-			"mapsDirectory": "\\csgo\\maps\\"
+			"name": "NiDE Zombie Escape",
+			"mapList": "https://gist.githubusercontent.com/cmer81/996c11b1b9f9371ce58ee6bd4c04bf2f/raw/b771423a20fbdbd4d013d6496a738776fb18b53c/maplist.csv",
+			"fastDL": "https://fastdl.nide.gg/css_ze/maps/",
+			"appID": "232330",
+			"mapsDirectory": "\\cstrike\\maps\\"
 		}
 	]
 }

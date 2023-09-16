@@ -7,7 +7,6 @@ on:
       - 'LICENSE'
       - 'README.md'
       - 'maps.csv'
-      - 'servers.json'
     branches:
       - master
     tags:
@@ -18,7 +17,6 @@ on:
       - 'LICENSE'
       - 'README.md'
       - 'maps.csv'
-      - 'servers.json'
 
 jobs:
   Build:
